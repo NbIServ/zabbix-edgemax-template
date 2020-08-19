@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
-    <version>4.4</version>
-    <date>2020-04-30T16:55:32Z</date>
+    <version>5.0</version>
+    <date>2020-08-19T22:17:43Z</date>
     <groups>
         <group>
             <name>Templates/Network devices</name>
@@ -38,8 +38,7 @@
             <items>
                 <item>
                     <name>Load average last 1 minute</name>
-                    <type>SNMPV2</type>
-                    <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
+                    <type>SNMP_AGENT</type>
                     <snmp_oid>1.3.6.1.4.1.2021.10.1.3.1</snmp_oid>
                     <key>LoadMinute</key>
                     <history>1d</history>
@@ -64,8 +63,7 @@
                 </item>
                 <item>
                     <name>Total amount of available memory</name>
-                    <type>SNMPV2</type>
-                    <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
+                    <type>SNMP_AGENT</type>
                     <snmp_oid>UCD-SNMP-MIB::memAvailReal.0</snmp_oid>
                     <key>MemAvailable</key>
                     <history>7d</history>
@@ -85,8 +83,7 @@
                 </item>
                 <item>
                     <name>Total amount of buffers</name>
-                    <type>SNMPV2</type>
-                    <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
+                    <type>SNMP_AGENT</type>
                     <snmp_oid>1.3.6.1.4.1.2021.4.14.0</snmp_oid>
                     <key>MemBuffers</key>
                     <history>7d</history>
@@ -106,8 +103,7 @@
                 </item>
                 <item>
                     <name>Total amount of cached</name>
-                    <type>SNMPV2</type>
-                    <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
+                    <type>SNMP_AGENT</type>
                     <snmp_oid>1.3.6.1.4.1.2021.4.15.0</snmp_oid>
                     <key>MemCached</key>
                     <history>7d</history>
@@ -127,8 +123,7 @@
                 </item>
                 <item>
                     <name>Total amount of memory</name>
-                    <type>SNMPV2</type>
-                    <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
+                    <type>SNMP_AGENT</type>
                     <snmp_oid>UCD-SNMP-MIB::memTotalReal.0</snmp_oid>
                     <key>MemTotal</key>
                     <history>7d</history>
@@ -196,56 +191,14 @@
             <discovery_rules>
                 <discovery_rule>
                     <name>Network interfaces discovery</name>
-                    <type>SNMPV2</type>
-                    <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
+                    <type>SNMP_AGENT</type>
                     <snmp_oid>discovery[{#IFOPERSTATUS},1.3.6.1.2.1.2.2.1.8,{#IFNAME},1.3.6.1.2.1.31.1.1.1.1]</snmp_oid>
                     <key>NetworkInterface</key>
                     <delay>1d</delay>
                     <item_prototypes>
                         <item_prototype>
-                            <name>Interface {#IFNAME} : Inbound packets discarded</name>
-                            <type>SNMPV2</type>
-                            <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
-                            <snmp_oid>1.3.6.1.2.1.2.2.1.13.{#SNMPINDEX}</snmp_oid>
-                            <key>net.if.in.discards[ifInDiscards.{#SNMPINDEX}]</key>
-                            <history>7d</history>
-                            <trends>0</trends>
-                            <applications>
-                                <application>
-                                    <name>Network</name>
-                                </application>
-                            </applications>
-                            <preprocessing>
-                                <step>
-                                    <type>CHANGE_PER_SECOND</type>
-                                    <params/>
-                                </step>
-                            </preprocessing>
-                        </item_prototype>
-                        <item_prototype>
-                            <name>Interface {#IFNAME} : Inbound packets with errors</name>
-                            <type>SNMPV2</type>
-                            <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
-                            <snmp_oid>1.3.6.1.2.1.2.2.1.14.{#SNMPINDEX}</snmp_oid>
-                            <key>net.if.in.errors[ifInErrors.{#SNMPINDEX}]</key>
-                            <history>7d</history>
-                            <trends>0</trends>
-                            <applications>
-                                <application>
-                                    <name>Network</name>
-                                </application>
-                            </applications>
-                            <preprocessing>
-                                <step>
-                                    <type>CHANGE_PER_SECOND</type>
-                                    <params/>
-                                </step>
-                            </preprocessing>
-                        </item_prototype>
-                        <item_prototype>
                             <name>Interface {#IFNAME} : Bits received</name>
-                            <type>SNMPV2</type>
-                            <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
+                            <type>SNMP_AGENT</type>
                             <snmp_oid>1.3.6.1.2.1.31.1.1.1.6.{#SNMPINDEX}</snmp_oid>
                             <key>net.if.in[ifHCInOctets.{#SNMPINDEX}]</key>
                             <history>7d</history>
@@ -268,50 +221,8 @@
                             </preprocessing>
                         </item_prototype>
                         <item_prototype>
-                            <name>Interface {#IFNAME} : Outbound packets discarded</name>
-                            <type>SNMPV2</type>
-                            <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
-                            <snmp_oid>1.3.6.1.2.1.2.2.1.19.{#SNMPINDEX}</snmp_oid>
-                            <key>net.if.out.discards[ifOutDiscards.{#SNMPINDEX}]</key>
-                            <history>7d</history>
-                            <trends>0</trends>
-                            <applications>
-                                <application>
-                                    <name>Network</name>
-                                </application>
-                            </applications>
-                            <preprocessing>
-                                <step>
-                                    <type>CHANGE_PER_SECOND</type>
-                                    <params/>
-                                </step>
-                            </preprocessing>
-                        </item_prototype>
-                        <item_prototype>
-                            <name>Interface {#IFNAME} : Outbound packets with errors</name>
-                            <type>SNMPV2</type>
-                            <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
-                            <snmp_oid>1.3.6.1.2.1.2.2.1.20.{#SNMPINDEX}</snmp_oid>
-                            <key>net.if.out.errors[ifOutErrors.{#SNMPINDEX}]</key>
-                            <delay>10m</delay>
-                            <history>7d</history>
-                            <trends>0</trends>
-                            <applications>
-                                <application>
-                                    <name>Network</name>
-                                </application>
-                            </applications>
-                            <preprocessing>
-                                <step>
-                                    <type>CHANGE_PER_SECOND</type>
-                                    <params/>
-                                </step>
-                            </preprocessing>
-                        </item_prototype>
-                        <item_prototype>
                             <name>Interface {#IFNAME} : Bits sent</name>
-                            <type>SNMPV2</type>
-                            <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
+                            <type>SNMP_AGENT</type>
                             <snmp_oid>1.3.6.1.2.1.31.1.1.1.10.{#SNMPINDEX}</snmp_oid>
                             <key>net.if.out[ifHCOutOctets.{#SNMPINDEX}]</key>
                             <history>7d</history>
@@ -335,8 +246,7 @@
                         </item_prototype>
                         <item_prototype>
                             <name>Interface {#IFNAME} : Speed</name>
-                            <type>SNMPV2</type>
-                            <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
+                            <type>SNMP_AGENT</type>
                             <snmp_oid>1.3.6.1.2.1.2.2.1.5.{#SNMPINDEX}</snmp_oid>
                             <key>net.if.speed[ifHighSpeed.{#SNMPINDEX}]</key>
                             <delay>10m</delay>
@@ -355,53 +265,7 @@
                                 </step>
                             </preprocessing>
                         </item_prototype>
-                        <item_prototype>
-                            <name>Interface {#IFNAME} : Operational status</name>
-                            <type>SNMPV2</type>
-                            <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
-                            <snmp_oid>1.3.6.1.2.1.2.2.1.8.{#SNMPINDEX}</snmp_oid>
-                            <key>net.if.status[ifOperStatus.{#SNMPINDEX}]</key>
-                            <history>1d</history>
-                            <trends>0</trends>
-                            <applications>
-                                <application>
-                                    <name>Network</name>
-                                </application>
-                            </applications>
-                            <valuemap>
-                                <name>IF-MIB::ifOperStatus</name>
-                            </valuemap>
-                            <trigger_prototypes>
-                                <trigger_prototype>
-                                    <expression>{last()}&lt;&gt;1</expression>
-                                    <recovery_mode>RECOVERY_EXPRESSION</recovery_mode>
-                                    <recovery_expression>{last()}=1</recovery_expression>
-                                    <name>Interface {#IFNAME} : Link down</name>
-                                    <opdata>Current state: {ITEM.LASTVALUE1}</opdata>
-                                    <status>DISABLED</status>
-                                    <priority>AVERAGE</priority>
-                                </trigger_prototype>
-                            </trigger_prototypes>
-                        </item_prototype>
                     </item_prototypes>
-                    <trigger_prototypes>
-                        <trigger_prototype>
-                            <expression>{Template EdgeMAX SNMPv2:net.if.in.errors[ifInErrors.{#SNMPINDEX}].min(5m)}&gt;{$IF.ERRORS.WARN:&quot;{#IFNAME}&quot;} or {Template EdgeMAX SNMPv2:net.if.out.errors[ifOutErrors.{#SNMPINDEX}].min(5m)}&gt;{$IF.ERRORS.WARN:&quot;{#IFNAME}&quot;}</expression>
-                            <recovery_mode>RECOVERY_EXPRESSION</recovery_mode>
-                            <recovery_expression>{Template EdgeMAX SNMPv2:net.if.in.errors[ifInErrors.{#SNMPINDEX}].max(5m)}&lt;=0 and {Template EdgeMAX SNMPv2:net.if.out.errors[ifOutErrors.{#SNMPINDEX}].max(5m)}&lt;=0</recovery_expression>
-                            <name>Interface {#IFNAME} : High error rate ( &gt; {$IF.ERRORS.WARN:&quot;{#IFNAME}&quot;} for 5m)</name>
-                            <opdata>errors in: {ITEM.LASTVALUE1}, errors out: {ITEM.LASTVALUE2}</opdata>
-                            <status>DISABLED</status>
-                            <priority>WARNING</priority>
-                            <dependencies>
-                                <dependency>
-                                    <name>Interface {#IFNAME} : Link down</name>
-                                    <expression>{Template EdgeMAX SNMPv2:net.if.status[ifOperStatus.{#SNMPINDEX}].last()}&lt;&gt;1</expression>
-                                    <recovery_expression>{Template EdgeMAX SNMPv2:net.if.status[ifOperStatus.{#SNMPINDEX}].last()}=1</recovery_expression>
-                                </dependency>
-                            </dependencies>
-                        </trigger_prototype>
-                    </trigger_prototypes>
                 </discovery_rule>
             </discovery_rules>
             <macros>
@@ -418,35 +282,4 @@
             </macros>
         </template>
     </templates>
-    <value_maps>
-        <value_map>
-            <name>IF-MIB::ifOperStatus</name>
-            <mappings>
-                <mapping>
-                    <value>1</value>
-                    <newvalue>up</newvalue>
-                </mapping>
-                <mapping>
-                    <value>2</value>
-                    <newvalue>down</newvalue>
-                </mapping>
-                <mapping>
-                    <value>4</value>
-                    <newvalue>unknown</newvalue>
-                </mapping>
-                <mapping>
-                    <value>5</value>
-                    <newvalue>dormant</newvalue>
-                </mapping>
-                <mapping>
-                    <value>6</value>
-                    <newvalue>notPresent</newvalue>
-                </mapping>
-                <mapping>
-                    <value>7</value>
-                    <newvalue>lowerLayerDown</newvalue>
-                </mapping>
-            </mappings>
-        </value_map>
-    </value_maps>
 </zabbix_export>
